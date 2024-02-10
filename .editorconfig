@@ -1,0 +1,18 @@
+# No .editorconfig files above the root directory
+root = true
+
+[*]
+indent_style = space
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+indent_size = 4
+
+[*.{kt,kts}]
+ktlint_code_style = ktlint_official
+ktlint_standard_filename = disabled
+ktlint_standard_multiline-expression-wrapping = disabled
+ktlint_standard_string-template-indent = disabled
+ktlint_standard_value-argument-comment = disabled
+ktlint_function_signature_body_expression_wrapping = default

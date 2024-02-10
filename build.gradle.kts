@@ -6,6 +6,7 @@ plugins {
     kotlin("jvm") version "1.9.22"
     application
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.22"
+    id("org.jmailen.kotlinter") version "4.2.0"
 }
 
 group = "com.qualitive"
@@ -28,6 +29,16 @@ dependencies {
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-netty:$ktor_version")
     implementation("ch.qos.logback:logback-classic:$logback_version")
+    implementation("io.github.oshai:kotlin-logging-jvm:5.1.0")
+
+    implementation("org.bouncycastle:bcprov-jdk18on:1.77")
+    implementation("org.bouncycastle:bcpkix-jdk18on:1.77")
+
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:$kotlin_version")
+}
+
+tasks.test {
+    ignoreFailures = false
+    useJUnitPlatform()
 }
