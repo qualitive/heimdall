@@ -1,0 +1,14 @@
+services:
+    heimdall:
+        build: .
+        container_name: heimdall
+        ports:
+            - "8080:8080"
+        environment:
+            - HEIMDALL_SUCCESS=http://localhost:8081/heimdall-success
+            - HEIMDALL_FAILURE=http://localhost:8080/loginerror
+            - HEIMDALL_URL=http://localhost:8080
+            - KEYSTORE_PASS=heimdall
+            - PRIVATE_KEY_PASS=heimdall
+        volumes:
+            - ./heimdall-storage:/var/lib/heimdall

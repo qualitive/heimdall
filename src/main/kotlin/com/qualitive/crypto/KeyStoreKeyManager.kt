@@ -89,7 +89,7 @@ class KeyStoreKeyManager(
         val KEYSTORE_FILENAME = if (Files.exists(Path.of("/var/lib/heimdall"))) {
             "/var/lib/heimdall/heimdall.jks"
         } else {
-            "./fafnir.jks"
+            "./heimdall.jks"
         }
 
         const val KEY_ALIAS = "HEIMDALL"
