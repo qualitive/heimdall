@@ -1,0 +1,33 @@
+[versions]
+ktorVersion = "3.0.0-beta-1"
+kotlinVersion = "1.9.22"
+logbackVersion = "1.4.14"
+kotlinterVersion = "4.2.0"
+bouncyCastleVersion = "1.77"
+scribeVersion = "8.3.3"
+
+[libraries]
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test-junit5", version.ref = "kotlinVersion" }
+
+ktor-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktorVersion" }
+ktor-contentNegotiation = { module = "io.ktor:ktor-server-content-negotiation-jvm", version.ref = "ktorVersion" }
+ktor-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json-jvm", version.ref = "ktorVersion" }
+ktor-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktorVersion" }
+ktor-test = { module = "io.ktor:ktor-server-tests-jvm", version.ref = "ktorVersion" }
+
+logback = { module = "ch.qos.logback:logback-classic", version.ref = "logbackVersion" }
+kotlinLogging = { module = "io.github.oshai:kotlin-logging-jvm", version = "5.1.0" }
+
+bouncycastle-bcprov = { module = "org.bouncycastle:bcprov-jdk18on", version.ref = "bouncyCastleVersion" }
+bouncycastle-bcpkix = { module = "org.bouncycastle:bcpkix-jdk18on", version.ref = "bouncyCastleVersion" }
+
+scribejava-core = { module = "com.github.scribejava:scribejava-core", version.ref = "scribeVersion" }
+scribejava-apis = { module = "com.github.scribejava:scribejava-apis", version.ref = "scribeVersion" }
+
+[bundles]
+ktor = ["ktor-core", "ktor-contentNegotiation", "ktor-netty", "ktor-serialization"]
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlinVersion" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinVersion" }
+kotlinter = { id = "org.jmailen.kotlinter", version.ref = "kotlinterVersion" }
