@@ -23,6 +23,9 @@ bouncycastle-bcpkix = { module = "org.bouncycastle:bcpkix-jdk18on", version.ref 
 
 scribejava-core = { module = "com.github.scribejava:scribejava-core", version.ref = "scribeVersion" }
 scribejava-apis = { module = "com.github.scribejava:scribejava-apis", version.ref = "scribeVersion" }
+auth0-jwt = { module = "com.auth0:java-jwt", version = "4.4.0" }
+
+logstash-logbackEncoder = { module = "net.logstash.logback:logstash-logback-encoder", version = "7.4" }
 
 [bundles]
 ktor = ["ktor-core", "ktor-contentNegotiation", "ktor-netty", "ktor-serialization"]

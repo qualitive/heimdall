@@ -33,6 +33,9 @@ dependencies {
     implementation(libs.bouncycastle.bcpkix)
     implementation(libs.scribejava.core)
     implementation(libs.scribejava.apis)
+    implementation(libs.auth0.jwt)
+
+    implementation(libs.logstash.logbackEncoder)
 
     testImplementation(libs.ktor.test)
     testImplementation(libs.kotlin.test)
@@ -41,6 +44,10 @@ dependencies {
 tasks.test {
     ignoreFailures = false
     useJUnitPlatform()
+
+    // Never use existing jks
+    doFirst { delete("${project.projectDir}/heimdall.jks")}
+    doLast { delete("${project.projectDir}/heimdall.jks") }
 }
 
 tasks.distTar { archiveFileName.set("heimdall.tar") }

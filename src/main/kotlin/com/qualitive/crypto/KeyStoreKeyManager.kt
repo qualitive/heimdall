@@ -16,8 +16,8 @@ import java.security.KeyPairGenerator
 import java.security.KeyStore
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
-import java.security.interfaces.RSAPrivateKey
-import java.security.interfaces.RSAPublicKey
+import java.security.interfaces.ECPrivateKey
+import java.security.interfaces.ECPublicKey
 import java.time.Instant
 import java.time.temporal.ChronoUnit
 import java.util.Date
@@ -29,9 +29,9 @@ class KeyStoreKeyManager(
     private val keystorePass: String,
 ) {
     private var certificate: X509Certificate
-    private var privateKey: RSAPrivateKey
+    var privateKey: ECPrivateKey
 
-    val publicKey get() = certificate.publicKey as RSAPublicKey
+    val publicKey get() = certificate.publicKey as ECPublicKey
 
     init {
         val keystore = inputStreamOrNull(KEYSTORE_FILENAME)?.use {
@@ -41,12 +41,12 @@ class KeyStoreKeyManager(
         } ?: createKeyStore()
 
         certificate = keystore.getCertificate(KEY_ALIAS) as X509Certificate
-        privateKey = keystore.getKey(KEY_ALIAS, privateKeyPass.toCharArray()) as RSAPrivateKey
+        privateKey = keystore.getKey(KEY_ALIAS, privateKeyPass.toCharArray()) as ECPrivateKey
     }
 
     private fun createKeyStore(): KeyStore {
-        val keyPair = KeyPairGenerator.getInstance("RSA").apply {
-            initialize(2048, SecureRandom())
+        val keyPair = KeyPairGenerator.getInstance("ECDSA").apply {
+            initialize(256, SecureRandom())
         }.let(KeyPairGenerator::generateKeyPair)
         val cert = generateCertificate(keyPair)
 
@@ -63,7 +63,7 @@ class KeyStoreKeyManager(
 
     private fun generateCertificate(keypair: KeyPair): X509Certificate {
         val owner = X500Name("CN=Heimdall Server")
-        val signer = JcaContentSignerBuilder("SHA256WithRSAEncryption").build(keypair.private)
+        val signer = JcaContentSignerBuilder("SHA256WITHECDSA").build(keypair.private)
 
         return runCatching {
             val holder = JcaX509v3CertificateBuilder(

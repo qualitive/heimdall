@@ -7,11 +7,12 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider
 import java.security.Security
 
 fun main(args: Array<String>) {
-    Security.addProvider(BouncyCastleProvider())
     io.ktor.server.netty.EngineMain.main(args)
 }
 
 fun Application.module() {
+    Security.addProvider(BouncyCastleProvider())
+
     configureSerialization()
     configureRouting()
 }
