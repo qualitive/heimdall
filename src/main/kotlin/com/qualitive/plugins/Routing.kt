@@ -11,9 +11,11 @@ import com.qualitive.provider.api.MicrosoftIdentityApi
 import com.qualitive.util.TokenFactory
 import io.ktor.server.application.Application
 import io.ktor.server.config.ApplicationConfig
+import io.ktor.server.request.receiveParameters
 import io.ktor.server.response.respondRedirect
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.get
+import io.ktor.server.routing.post
 import io.ktor.server.routing.route
 import io.ktor.server.routing.routing
 import java.util.Base64
@@ -70,8 +72,9 @@ fun Application.configureRouting() {
             get {
                 call.respondRedirect(msidProvider.authenticate())
             }
-            get("/callback") {
-                val idToken = call.request.queryParameters["id_token"] ?: throw CallbackFailed("Could not find 'id_token' query param")
+            post("/callback") {
+                val formParams = call.receiveParameters()
+                val idToken = formParams["id_token"] ?: throw CallbackFailed("Could not find 'id_token' query param")
                 call.respondRedirect(msidProvider.callback(idToken).getUrl(heimdallConf))
             }
         }
