@@ -1,32 +1,34 @@
 plugins {
-    application
     alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kotlin.all.open)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.johnrengelman.shadow)
+    alias(libs.plugins.micronaut.application)
+    alias(libs.plugins.micronaut.aot)
     alias(libs.plugins.kotlinter)
 }
 
+version = "0.1"
 group = "com.qualitive"
-version = "1.0.0"
-
-kotlin {
-    jvmToolchain(21)
-}
-
-application {
-    mainClass.set("io.ktor.server.netty.EngineMain")
-
-    val isDevelopment: Boolean = project.ext.has("development")
-    applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
-}
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation(libs.bundles.ktor)
+    ksp(libs.micronaut.http.validation)
 
-    implementation(libs.logback)
+    compileOnly(libs.micronaut.http.client)
+    implementation(libs.micronaut.jackson.databind)
+    implementation(libs.micronaut.kotlin.runtime)
+
+    implementation(libs.kotlin.reflect)
+    implementation(libs.kotlin.stdlib)
+
+    runtimeOnly(libs.jackson.kotlin)
+
+    runtimeOnly(libs.logback)
+    implementation(libs.logstash.logbackEncoder)
     implementation(libs.kotlinLogging)
 
     implementation(libs.bouncycastle.bcprov)
@@ -35,20 +37,52 @@ dependencies {
     implementation(libs.scribejava.apis)
     implementation(libs.auth0.jwt)
 
-    implementation(libs.logstash.logbackEncoder)
+    testImplementation(libs.micronaut.http.client)
+}
 
-    testImplementation(libs.ktor.test)
-    testImplementation(libs.kotlin.test)
+
+application {
+    mainClass = "com.qualitive.heimdall.ApplicationKt"
+}
+java {
+    sourceCompatibility = JavaVersion.toVersion("21")
+}
+
+
+graalvmNative.toolchainDetection = false
+micronaut {
+    runtime("netty")
+    testRuntime("kotest5")
+    processing {
+        incremental(true)
+        annotations("com.qualitive.*")
+    }
+    aot {
+    // Please review carefully the optimizations enabled below
+    // Check https://micronaut-projects.github.io/micronaut-aot/latest/guide/ for more details
+        optimizeServiceLoading = false
+        convertYamlToJava = false
+        precomputeOperations = true
+        cacheEnvironment = true
+        optimizeClassLoading = true
+        deduceEnvironment = true
+        optimizeNetty = true
+        replaceLogbackXml = true
+    }
 }
 
 tasks.test {
-    ignoreFailures = false
     useJUnitPlatform()
+    ignoreFailures = false
 
     // Never use existing jks
     doFirst { delete("${project.projectDir}/heimdall.jks")}
     doLast { delete("${project.projectDir}/heimdall.jks") }
 }
 
-tasks.distTar { archiveFileName.set("heimdall.tar") }
-tasks.distZip { enabled = false }
+
+tasks.named<io.micronaut.gradle.docker.NativeImageDockerfile>("dockerfileNative") {
+    jdkVersion = "21"
+}
+
+

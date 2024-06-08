@@ -1,21 +1,24 @@
 [versions]
-ktorVersion = "3.0.0-beta-1"
-kotlinVersion = "1.9.22"
+kotlinVersion = "2.0.0"
 logbackVersion = "1.4.14"
 kotlinterVersion = "4.2.0"
 bouncyCastleVersion = "1.77"
 scribeVersion = "8.3.3"
+micronautVersion = "4.3.0"
 
 [libraries]
-kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test-junit5", version.ref = "kotlinVersion" }
+micronaut-http-validation = { module = "io.micronaut:micronaut-http-validation", version.ref = "micronautVersion" }
+micronaut-jackson-databind = { module = "io.micronaut:micronaut-jackson-databind", version.ref = "micronautVersion" }
+micronaut-kotlin-runtime = { module = "io.micronaut.kotlin:micronaut-kotlin-runtime", version.ref = "micronautVersion" }
+micronaut-http-client = { module = "io.micronaut:micronaut-http-client", version.ref = "micronautVersion" }
 
-ktor-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktorVersion" }
-ktor-contentNegotiation = { module = "io.ktor:ktor-server-content-negotiation-jvm", version.ref = "ktorVersion" }
-ktor-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json-jvm", version.ref = "ktorVersion" }
-ktor-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktorVersion" }
-ktor-test = { module = "io.ktor:ktor-server-tests-jvm", version.ref = "ktorVersion" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlinVersion" }
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlinVersion" }
+
+jackson-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin" }
 
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logbackVersion" }
+logstash-logbackEncoder = { module = "net.logstash.logback:logstash-logback-encoder", version = "7.4" }
 kotlinLogging = { module = "io.github.oshai:kotlin-logging-jvm", version = "5.1.0" }
 
 bouncycastle-bcprov = { module = "org.bouncycastle:bcprov-jdk18on", version.ref = "bouncyCastleVersion" }
@@ -25,12 +28,11 @@ scribejava-core = { module = "com.github.scribejava:scribejava-core", version.re
 scribejava-apis = { module = "com.github.scribejava:scribejava-apis", version.ref = "scribeVersion" }
 auth0-jwt = { module = "com.auth0:java-jwt", version = "4.4.0" }
 
-logstash-logbackEncoder = { module = "net.logstash.logback:logstash-logback-encoder", version = "7.4" }
-
-[bundles]
-ktor = ["ktor-core", "ktor-contentNegotiation", "ktor-netty", "ktor-serialization"]
-
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlinVersion" }
-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinVersion" }
+kotlin-all-open = { id = "org.jetbrains.kotlin.plugin.allopen", version.ref = "kotlinVersion" }
+ksp = { id = "com.google.devtools.ksp", version = "2.0.0-1.0.22"}
+johnrengelman-shadow = { id = "com.github.johnrengelman.shadow", version = "8.1.1"}
 kotlinter = { id = "org.jmailen.kotlinter", version.ref = "kotlinterVersion" }
+micronaut-application = { id = "io.micronaut.application", version.ref = "micronautVersion"}
+micronaut-aot = { id = "io.micronaut.aot", version.ref = "micronautVersion"}

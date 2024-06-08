@@ -1,14 +1,19 @@
 services:
-    heimdall:
-        build: .
-        container_name: heimdall
-        ports:
-            - "8080:8080"
-        environment:
-            - HEIMDALL_SUCCESS=http://localhost:8081/heimdall-success
-            - HEIMDALL_FAILURE=http://localhost:8080/loginerror
-            - HEIMDALL_URL=http://localhost:8080
-            - KEYSTORE_PASS=heimdall
-            - PRIVATE_KEY_PASS=heimdall
-        volumes:
-            - ./heimdall-storage:/var/lib/heimdall
+  heimdall:
+    build: .
+    container_name: heimdall
+    ports:
+      - "8080:8080"
+    environment:
+      - HEIMDALL_URL=${HEIMDALL_URL}
+      - HEIMDALL_SUCCESS=${HEIMDALL_SUCCESS}
+      - HEIMDALL_FAILURE=${HEIMDALL_FAILURE}
+      - HEIMDALL_GOOGLE_AID=${GOOGLE_AID}
+      - HEIMDALL_GOOGLE_SECRET=${GOOGLE_SECRET}
+      - HEIMDALL_MSID_AID=${MSID_AID}
+      - HEIMDALL_MSID_SECRET=${MSID_SECRET}
+      - HEIMDALL_MSID_TENANT=${MSID_TENANT}
+      - KEYSTORE_PASSWORD=${KEYSTORE_PASSWORD}
+      - KEYSTORE_PRIVATE_KEY_PASSWORD=${KEYSTORE_PRIVATE_KEY_PASSWORD}
+    volumes:
+      - ./heimdall-storage:/var/lib/heimdall
