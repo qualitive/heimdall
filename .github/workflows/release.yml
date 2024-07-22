@@ -67,5 +67,5 @@ jobs:
           platforms: linux/arm64,linux/amd64
           push: true
           tags: |
-            public.ecr.aws/w8z8h8p6/qualitive/heimdall:${{ steps.spell.outputs.version }}
-            public.ecr.aws/w8z8h8p6/qualitive/heimdall:latest
+            public.ecr.aws/qualitive/heimdall:${{ steps.spell.outputs.version }}
+            public.ecr.aws/qualitive/heimdall:latest
