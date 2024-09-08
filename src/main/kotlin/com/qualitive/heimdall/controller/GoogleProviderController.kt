@@ -16,13 +16,13 @@ class GoogleProviderController(
     @Get
     fun authenticate(): HttpResponse<String> {
         val redirectLocation = URI.create(googleProvider.authenticate())
-        return HttpResponse.redirect(redirectLocation)
+        return HttpResponse.temporaryRedirect(redirectLocation)
     }
 
     @Get("/callback")
     fun callback(
         @QueryValue("code") code: String,
     ): HttpResponse<String> {
-        return HttpResponse.redirect(googleProvider.callback(code).getUrl(heimdallConf))
+        return HttpResponse.temporaryRedirect(googleProvider.callback(code).getUrl(heimdallConf))
     }
 }

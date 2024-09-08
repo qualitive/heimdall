@@ -16,13 +16,13 @@ class MicrosoftIdentityProviderController(
     @Get
     fun authenticate(): HttpResponse<String> {
         val redirectLocation = URI.create(provider.authenticate())
-        return HttpResponse.redirect(redirectLocation)
+        return HttpResponse.temporaryRedirect(redirectLocation)
     }
 
     @Get("/callback")
     fun callback(
         @QueryValue("code") code: String,
     ): HttpResponse<String> {
-        return HttpResponse.redirect(provider.callback(code).getUrl(heimdallConf))
+        return HttpResponse.temporaryRedirect(provider.callback(code).getUrl(heimdallConf))
     }
 }
