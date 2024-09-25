@@ -11,6 +11,7 @@ micronaut-http-validation = { module = "io.micronaut:micronaut-http-validation",
 micronaut-jackson-databind = { module = "io.micronaut:micronaut-jackson-databind", version.ref = "micronautVersion" }
 micronaut-kotlin-runtime = { module = "io.micronaut.kotlin:micronaut-kotlin-runtime", version.ref = "micronautVersion" }
 micronaut-http-client = { module = "io.micronaut:micronaut-http-client", version.ref = "micronautVersion" }
+micronaut-aws-secretsmanager = { module = "io.micronaut.aws:micronaut-aws-secretsmanager", version.ref = "micronautVersion" }
 
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlinVersion" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlinVersion" }

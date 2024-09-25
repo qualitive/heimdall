@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.johnrengelman.shadow)
     alias(libs.plugins.micronaut.application)
-    alias(libs.plugins.micronaut.aot)
     alias(libs.plugins.kotlinter)
 }
 
@@ -21,6 +20,7 @@ dependencies {
     compileOnly(libs.micronaut.http.client)
     implementation(libs.micronaut.jackson.databind)
     implementation(libs.micronaut.kotlin.runtime)
+    implementation(libs.micronaut.aws.secretsmanager)
 
     implementation(libs.kotlin.reflect)
     implementation(libs.kotlin.stdlib)
@@ -56,18 +56,6 @@ micronaut {
     processing {
         incremental(true)
         annotations("com.qualitive.*")
-    }
-    aot {
-    // Please review carefully the optimizations enabled below
-    // Check https://micronaut-projects.github.io/micronaut-aot/latest/guide/ for more details
-        optimizeServiceLoading = false
-        convertYamlToJava = false
-        precomputeOperations = true
-        cacheEnvironment = true
-        optimizeClassLoading = true
-        deduceEnvironment = true
-        optimizeNetty = true
-        replaceLogbackXml = true
     }
 }
 

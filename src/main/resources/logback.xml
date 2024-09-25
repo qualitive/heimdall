@@ -6,4 +6,5 @@
         <appender-ref ref="jsonstdout"/>
     </root>
     <logger name="io.netty" level="INFO"/>
+    <logger name="io.micronaut.aws.distributedconfiguration" level="TRACE"/>
 </configuration>
