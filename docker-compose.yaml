@@ -19,5 +19,6 @@ services:
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - ENABLE_SECRETS_MANAGER=${ENABLE_SECRETS_MANAGER}
+      - SECRET_NAME=${SECRET_NAME}
     volumes:
       - ./heimdall-storage:/var/lib/heimdall
